@@ -18,6 +18,11 @@ jobs:
           php-version: '8.3'
           extensions: xml
 
+      - name: Install XML extension
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-xml
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
@@ -36,6 +41,11 @@ jobs:
         with:
           php-version: '8.3'
           extensions: xml
+
+      - name: Install XML extension
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-xml
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
