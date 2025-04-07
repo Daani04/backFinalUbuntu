@@ -16,18 +16,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: xml
-
-      - name: Install XML extension
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y php-xml
-
-      - name: Verify PHP extensions
-        run: php -m
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist --ignore-platform-req=ext-xml
 
       - name: Run tests
         run: ./vendor/bin/phpunit tests
@@ -43,18 +34,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: xml
-
-      - name: Install XML extension
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y php-xml
-
-      - name: Verify PHP extensions
-        run: php -m
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist --ignore-platform-req=ext-xml
 
       - name: Deploy to server
         env:
@@ -68,5 +50,5 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "mkdir -p $DEPLOY_PATH"
           rsync -avz --delete --no-t --exclude 'tests' --exclude '.git' . $USERNAME@$HOST:$DEPLOY_PATH
-          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"
+          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-req=ext-xml"
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo systemctl restart apache2"
