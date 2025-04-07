@@ -17,7 +17,7 @@ class ProductAllDataRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return ProductAllData[] Returns an array of ProductAllData object
+    //     * @return ProductAllData[] Returns an array of ProductAllData objects
     //     */
     //    public function findByExampleField($value): array
     //    {
