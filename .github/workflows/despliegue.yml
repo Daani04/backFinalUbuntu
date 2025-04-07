@@ -23,6 +23,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y php-xml
 
+      - name: Verify PHP extensions
+        run: php -m
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
@@ -46,6 +49,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y php-xml
+
+      - name: Verify PHP extensions
+        run: php -m
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
