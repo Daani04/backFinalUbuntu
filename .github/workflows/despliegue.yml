@@ -18,9 +18,8 @@ jobs:
           php-version: '8.3'
           extensions: xml
 
-
       - name: Install dependencies
-        run: composer install
+        run: composer install --no-interaction --prefer-dist
 
       - name: Run tests
         run: ./vendor/bin/phpunit tests
@@ -36,9 +35,10 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+          extensions: xml
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --no-interaction --prefer-dist
 
       - name: Deploy to server
         env:
@@ -52,5 +52,5 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "mkdir -p $DEPLOY_PATH"
           rsync -avz --delete --no-t --exclude 'tests' --exclude '.git' . $USERNAME@$HOST:$DEPLOY_PATH
-          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader"
+          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DEPLOY_PATH && composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"
           ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "sudo systemctl restart apache2"
